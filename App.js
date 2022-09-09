@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { Button, FlatList, ImageBackground, StyleSheet, View } from 'react-native';
+import { Button, FlatList, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import Swiper from "react-native-swiper";
+
 
 import GoalItem from './components/GoalItem';
 import GoalInput from './components/GoalInput';
@@ -43,34 +45,45 @@ export default function App() {
       <ImageBackground 
         source={bgApp} 
         style={styles.bgApp}>
-        <View style={styles.appContainer}>
-          <Button 
-            title='Add New Goal' 
-            color={ '#ba024a' }
-            onPress={startAddGoalHandler}
-          />
-          <GoalInput 
-            visible={modalIsVisible}
-            onAddGoal={addGoalHandler}
-            onCancel={endAddGoalHandler}
-          />
-          <View style={styles.golsConteiner}>
-            <FlatList
-              data={courseGoals}
-              renderItem={(itemData) => {
-                return ( 
-                  <GoalItem 
-                    text={itemData.item.text}
-                    id={itemData.item.id}
-                    onDeleteItem={deleteGoalHandler}
-                  />);
-              }}
-              keyExtractor={(item, index) => {
-                return item.id;
-              }}
+        <Swiper style={styles.wrapper} showsButtons loop={false}>
+
+          <View style={styles.appContainer}>
+            <Button 
+              title='Add New Goal' 
+              color={ '#ba024a' }
+              onPress={startAddGoalHandler}
             />
+            <GoalInput 
+              visible={modalIsVisible}
+              onAddGoal={addGoalHandler}
+              onCancel={endAddGoalHandler}
+            />
+            <View style={styles.golsConteiner}>
+              <FlatList
+                data={courseGoals}
+                renderItem={(itemData) => {
+                  return ( 
+                    <GoalItem 
+                      text={itemData.item.text}
+                      id={itemData.item.id}
+                      onDeleteItem={deleteGoalHandler}
+                    />);
+                }}
+                keyExtractor={(item, index) => {
+                  return item.id;
+                }}
+              />
+            </View>
           </View>
-        </View>
+
+          <View style={styles.slide2}>
+            <Text style={styles.goalText}>Second Slide</Text>
+          </View>
+          
+          <View style={styles.slide3}>
+            <Text style={styles.goalText}>3 Slide</Text>
+          </View>
+        </Swiper>
       </ImageBackground>
     </>
   );
