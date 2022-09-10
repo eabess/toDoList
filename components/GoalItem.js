@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Alert, Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import { Alert, Modal, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 function GoalItem(props) {
 
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
-      <View style={styles.slide1}>
+      <View>
         <Modal
           animationType="slide"
           transparent={true}
@@ -18,7 +18,6 @@ function GoalItem(props) {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              {/* <Text style={styles.modalText}>Hello World!</Text> */}
               <Pressable
                 style={[styles.button, styles.buttonClose]}
                 android_ripple={{ color: '#ba024a' }} 
@@ -73,27 +72,17 @@ const styles = StyleSheet.create({
     color: 'white',
     padding: 8,
   },
-  slide1: {
-    flex: 1,
-  },
-  slide2: {
-    flex: 1,
-  },
   centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginTop: 22,
   },
   modalView: {
-    // margin: 20,
     width: '80%',
-    height: '70%',
     backgroundColor: "#71856e",
     borderRadius: 8,
-    paddingHorizontal: '10%',
-    paddingTop: '20%',
-    // alignItems: "center",
+    padding: '10%',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -105,30 +94,17 @@ const styles = StyleSheet.create({
     opacity: 0.85,
   },
   button: {
-    // borderRadius: 20,
-    // marginHorizontal: '10%',
-    marginBottom: 10,
-    // marginTop: '30%',
-    padding: 15,
-    paddingHorizontal: 40,
+    marginBottom: 8,
+    padding: 10,
+    paddingHorizontal: 50,
     elevation: 2,
     opacity: 0.9,
   },
-  // buttonOpen: {
-  //   backgroundColor: "#F194FF",
-  // },
   buttonClose: {
     backgroundColor: "#0b1c07",
   },
-  // textStyle: {
-  //   color: "white",
-  //   fontWeight: "bold",
-  //   textAlign: "center"
-  // },
   modalText: {
-    // marginBottom: 15,
     textAlign: "center",
     color: 'white',
-    // padding: 8,
   },
 });
