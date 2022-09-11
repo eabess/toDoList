@@ -20,7 +20,8 @@ function Backlog() {
       setCourseGoals((currentCourseGoals) => [
         ...currentCourseGoals,
         {text: enteredGoalText,
-        id: Math.random().toString()},
+        id: Math.random().toString(),
+        },
       ]);
       endAddGoalHandler();
       // setModalIsVisible(false);
