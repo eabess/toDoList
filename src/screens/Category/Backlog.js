@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, FlatList, StyleSheet, View } from "react-native";
-import GoalInput from "./GoalInput";
-import GoalItem from "./GoalItem";
+import GoalInput from "./Goal/GoalInput";
+import GoalItem from "./Goal/GoalItem";
 
 function Backlog() {
   

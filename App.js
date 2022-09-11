@@ -4,11 +4,11 @@ import { StatusBar } from 'expo-status-bar';
 import Swiper from "react-native-swiper";
 
 
-import GoalItem from './components/GoalItem';
-import GoalInput from './components/GoalInput';
-import Backlog from './components/Backlog';
-import Done from './components/Done';
-import InProgress from './components/InProgress';
+// import GoalItem from '../components/GoalItem';
+// import GoalInput from '../components/GoalInput';
+import Backlog from './src/screens/Category/Backlog';
+import Done from './src/screens/Category/Done';
+import InProgress from './src/screens/Category/InProgress';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AntDesign from 'react-native-vector-icons/AntDesign';
