@@ -23,7 +23,7 @@ function GoalItem(props) {
                 android_ripple={{ color: '#ba024a' }} 
                 onPress={() => setModalVisible(!modalVisible)}
               >
-                <Text style={styles.modalText}>Move...</Text>
+                <Text style={styles.modalText}>Move "In Progress"</Text>
               </Pressable>
               <Pressable
                 style={[styles.button, styles.buttonClose]}

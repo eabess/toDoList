@@ -1,4 +1,4 @@
-import Category from './src/screens/ScrumBoard/Category';
+import Category from './components/screens/ScrumBoard/Category';
 
 export default function App() {
   
