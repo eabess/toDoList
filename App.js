@@ -1,25 +1,23 @@
-// import { NativeModules } from 'react-native';
-// NativeModules.DevSettings.setIsDebuggingRemotely(false);
-
 import 'react-native-gesture-handler';
 import Category from './components/screens/ScrumBoard/Category';
+import Profile from './components/screens/Profile/Profile';
 
 import * as React from 'react';
 import { View, Text } from 'react-native';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-function ScrumBoard() {
+function ToDoList() {
   return <Category /> ;
 }
 
-function Profile() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Profile Screen</Text>
-    </View>
-  );
-}
+// function Profile() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//       <Text>Profile Screen</Text>
+//     </View>
+//   );
+// }
 
 const navTheme = {
   ...DefaultTheme,
@@ -49,9 +47,9 @@ function MyDrawer() {
       }}
     >
       <Drawer.Screen
-        name="ScrumBoard"
+        name="ToDoList"
         component={Category}
-        options={{ drawerLabel: 'ScrumBoard' }}
+        options={{ drawerLabel: 'ToDoList' }}
       />
       <Drawer.Screen
         name="Profile"
