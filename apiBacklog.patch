@@ -1,0 +1,141 @@
+diff --git a/App.js b/App.js
+index 33bda97..b756b0d 100644
+--- a/App.js
++++ b/App.js
+@@ -6,7 +6,7 @@ import { View, Text } from 'react-native';
+ import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+ import { createDrawerNavigator } from '@react-navigation/drawer';
+ 
+-function ScrumBoard() {
++function ToDoList() {
+   return <Category /> ;
+ }
+ 
+@@ -46,9 +46,9 @@ function MyDrawer() {
+       }}
+     >
+       <Drawer.Screen
+-        name="ScrumBoard"
++        name="ToDoList"
+         component={Category}
+-        options={{ drawerLabel: 'ScrumBoard' }}
++        options={{ drawerLabel: 'ToDoList' }}
+       />
+       <Drawer.Screen
+         name="Profile"
+diff --git a/components/screens/ScrumBoard/Category/Backlog.js b/components/screens/ScrumBoard/Category/Backlog.js
+index 6a87bd2..a1416fd 100644
+--- a/components/screens/ScrumBoard/Category/Backlog.js
++++ b/components/screens/ScrumBoard/Category/Backlog.js
+@@ -17,13 +17,86 @@ function Backlog() {
+   }
+ 
+   function addGoalHandler(enteredGoalText) {
+-    setCourseGoals(( currentCourseGoals ) => [
+-      ...currentCourseGoals,
+-      {text: enteredGoalText,
+-      id: Math.random().toString(),
+-      category: 'Backlog',
++    // let xhr = new XMLHttpRequest();
++    // xhr.open('POST', 'http://194.87.92.211:5000/tasks/create', false);
++    // xhr.setRequestHeader('Content-Type', 'application/json');
++    // xhr.send(JSON.stringify({'user_id': 1, 'description': enteredGoalText}));
++
++    // if (xhr.status != 200) { 
++    //   alert(`Error ${xhr.status}: ${xhr.statusText}`);
++    // }
++
++    fetch('http://194.87.92.211:5000/tasks/create', {
++      method: 'POST',
++      headers: {
++        'Content-Type': 'application/json'
+       },
+-    ]);
++      body: {
++        'user_id': 1, 
++        'description': enteredGoalText
++      }
++    })
++      .catch(error => {
++        alert(error.message);  // handle the error
++      });
++
++    setCourseGoals(( currentCourseGoals ) => {
++      let user_id = 1; // заменить на реальный
++      // let xhr = new XMLHttpRequest();
++      // responseType = 'json';
++      // xhr.open('GET', `http://194.87.92.211:5000/tasks/${user_id}`, false);
++      // xhr.setRequestHeader('Content-Type', 'application/json');
++      // xhr.send();
++
++      // if (xhr.status != 200) { 
++      //   alert(`2Error ${xhr.status}: ${xhr.statusText}`);
++      // }
++      return fetch('http://194.87.92.211:5000/tasks/1', {
++        method: 'GET',
++        headers: {
++          'Content-Type': 'application/json'
++        }
++      })
++        .then(response => {
++          let stateToCategory = new Map(Object.entries({
++            1: 'Backlog',
++            2: 'InProgress',
++            3: 'Done'
++          }));
++          // var jsonResponse = JSON.parse(xhr.responseText);
++          // alert(response.text());
++          return response.json().then(obj => obj.map(( task ) => {
++            return {
++              category: stateToCategory.has(task.state) ? stateToCategory.get(task.state) : 'Backlog',
++              id: task.task_id,
++              text: task.description,
++            };
++          }));  // handle the response
++        })
++        .catch(error => {
++          alert(error.message);  // handle the error
++          return [];
++        });
++
++      // let stateToCategory = new Map(Object.entries({
++      //   1: 'Backlog',
++      //   2: 'InProgress',
++      //   3: 'Done'
++      // }));
++      // var jsonResponse = JSON.parse(xhr.responseText);
++      // return jsonResponse.map(( task ) => {
++      //   return {
++      //     category: stateToCategory.has(task.state) ? stateToCategory.get(task.state) : 'Backlog',
++      //     id: task.task_id,
++      //     text: task.description,
++      //   };
++      // });
++      // ...currentCourseGoals,
++      // {text: enteredGoalText,
++      // id: Math.random().toString(),
++      // category: 'Backlog',
++      // },
++    });
+     endAddGoalHandler();
+     // setModalIsVisible(false);
+   }
+diff --git a/package.json b/package.json
+index 5b97932..1248aaf 100644
+--- a/package.json
++++ b/package.json
+@@ -17,11 +17,11 @@
+     "expo-status-bar": "~1.4.0",
+     "react": "18.0.0",
+     "react-native": "0.69.4",
++    "react-native-gesture-handler": "~2.5.0",
++    "react-native-reanimated": "~2.9.1",
+     "react-native-swiper": "^1.6.0",
+     "react-redux": "^8.0.2",
+-    "redux": "^4.2.0",
+-    "react-native-gesture-handler": "~2.5.0",
+-    "react-native-reanimated": "~2.9.1"
++    "redux": "^4.2.0"
+   },
+   "devDependencies": {
+     "@babel/core": "^7.12.9"
