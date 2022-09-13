@@ -4,6 +4,9 @@ function Done() {
     return (
       <View style={styles.profile}>
         <Text style={styles.profileText}>Profile</Text>
+        <Image style={styles.imageUser}
+          source={require('../../../assets/images/user.png')} />
+        <Text style={styles.UserInfo}>User name</Text>
       </View>
     );
   }

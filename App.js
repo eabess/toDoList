@@ -1,3 +1,6 @@
+// import { NativeModules } from 'react-native';
+// NativeModules.DevSettings.setIsDebuggingRemotely(false);
+
 import 'react-native-gesture-handler';
 import Category from './components/screens/ScrumBoard/Category';
 
