@@ -1,20 +1,11 @@
-import { Button, FlatList, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 import Backlog from './Category/Backlog';
 import Done from './Category/Done';
 import InProgress from './Category/InProgress';
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-
-const navTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: 'transparent',
-  },
-};
 
 const Tab = createMaterialBottomTabNavigator();
 const bgApp = { uri: 'https://i.pinimg.com/originals/ff/b6/5c/ffb65c935aa5e109144dfa4ccd5e51ff.jpg' };
@@ -23,12 +14,12 @@ export default function Category() {
   
   return (
     <>
-      <StatusBar style='light'/>
+      <StatusBar style='dark'/>
         
         <ImageBackground 
               source={bgApp} 
               style={styles.bgApp}>
-          <NavigationContainer theme={navTheme} >
+          {/* <NavigationContainer theme={navTheme} > */}
             <Tab.Navigator
               barStyle={styles.barStyle}
               activeColor="white"
@@ -53,7 +44,7 @@ export default function Category() {
               <Tab.Screen name='In Progress' component={InProgress} />
               <Tab.Screen name='Done' component={Done} />
             </Tab.Navigator>
-          </NavigationContainer>
+          {/* </NavigationContainer> */}
         </ImageBackground>
     </>
   );
