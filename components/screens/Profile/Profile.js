@@ -11,7 +11,6 @@ function Profile() {
         resizeMode="cover" 
         style={styles.bgProfile}
       >
-      {/* <Text style={styles.profileText}>Profile</Text> */}
         <Image style={styles.imageUser}
           source={require('../../../assets/images/user.png')} />
         <View style={styles.profileInfo}>
@@ -36,7 +35,6 @@ const styles = StyleSheet.create({
   profile: {
     flex: 1,
     backgroundColor: '#71856e',
-    // justifyContent: 'center',
     alignItems: 'center',
   },
   profileInfo: {

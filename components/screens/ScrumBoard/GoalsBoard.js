@@ -1,16 +1,14 @@
 import { ImageBackground, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-
-import Backlog from './Category/Backlog';
-import Done from './Category/Done';
-import InProgress from './Category/InProgress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+
+import GoalsContainer from './GoalsBoard/GoalsContainer';
 
 const Tab = createMaterialBottomTabNavigator();
 const bgApp = { uri: 'https://i.pinimg.com/originals/ff/b6/5c/ffb65c935aa5e109144dfa4ccd5e51ff.jpg' };
 
-export default function Category() {
+export default function GoalsBoard() {
   
   return (
     <>
@@ -40,9 +38,9 @@ export default function Category() {
                 },
               })}
             >
-              <Tab.Screen name='Backlog' component={Backlog} />
-              <Tab.Screen name='In Progress' component={InProgress} />
-              <Tab.Screen name='Done' component={Done} />
+              <Tab.Screen name='Backlog' children={()=><GoalsContainer category='Backlog'/>}/>
+              <Tab.Screen name='In Progress' children={()=><GoalsContainer category='InProgress'/>}/>
+              <Tab.Screen name='Done' children={()=><GoalsContainer category='Done'/>}/>
             </Tab.Navigator>
           {/* </NavigationContainer> */}
         </ImageBackground>

@@ -1,18 +1,18 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, Image, ImageBackground, Modal, StyleSheet, TextInput, View } from "react-native";
 
 const bgInput = { uri: 'https://i.pinimg.com/originals/7e/72/36/7e7236c57f822b098205e8e64ad94bee.jpg'};
 
 function GoalInput(props) {
-  const [enteredGoalText, setEnteredGoalText] = useState('');
+  const dispatch = useDispatch();
+  const enteredGoalText = useSelector((state) => state.newGoalText);
 
   function goalInputHandler(enteredText) {
-    setEnteredGoalText(enteredText);
+    dispatch({type: 'CHANGE_GOAL_TEXT', payload: enteredText});
   }
 
   function addGoalHandler() {
-    props.onAddGoal(enteredGoalText);
-    setEnteredGoalText('');
+    props.onAddGoal();
   }
 
   return (
@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    // backgroundColor: '#ba024a',
   },
   image: {
     width: 120,

@@ -1,12 +1,18 @@
 import { useState } from "react";
+import { useSelector } from 'react-redux';
 import { Button, FlatList, StyleSheet, View } from "react-native";
+import { useDispatch } from 'react-redux'
+
 import GoalInput from "./Goal/GoalInput";
 import GoalItem from "./Goal/GoalItem";
 
-function Backlog() {
-
+function GoalsContainer(props) {
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+  const goals = useSelector((state) => state.goals.goals);
   const [courseGoals, setCourseGoals] = useState([]);
   const [modalIsVisible, setModalIsVisible] = useState(false);
+
 
   function startAddGoalHandler() {
     setModalIsVisible(true);
@@ -16,47 +22,45 @@ function Backlog() {
     setModalIsVisible(false);
   }
 
-  function addGoalHandler(enteredGoalText) {
-    setCourseGoals(( currentCourseGoals ) => [
-      ...currentCourseGoals,
-      {text: enteredGoalText,
-      id: Math.random().toString(),
-      category: 'Backlog',
-      },
-    ]);
+  function addGoalHandler() {
+    dispatch({type: 'ADD_GOAL'});
     endAddGoalHandler();
-    // setModalIsVisible(false);
   }
 
-  function deleteGoalHandler(id) {
-    setCourseGoals(( currentCourseGoals ) => {
-      return currentCourseGoals.filter(( goal ) => 
-        goal.id !== id);
-    });
+  function moveGoalHandler(goalId) {
+    dispatch({type: 'MOVE_GOAL', payload: goalId});
+  }
+
+  function deleteGoalHandler(goalId) {
+    dispatch({type: 'DELETE_GOAL', payload: goalId});
   }
 
   return (
     <View style={styles.appContainer}>
-      <Button 
-        title='Add New Goal' 
-        color={ '#ba024a' }
-        onPress={startAddGoalHandler}
-      />
+      { props.category === 'Backlog' &&
+        <Button 
+          title='Add New Goal' 
+          color={ '#ba024a' }
+          onPress={startAddGoalHandler}
+        />
+      }
       <GoalInput 
         visible={modalIsVisible}
         onAddGoal={addGoalHandler}
         onCancel={endAddGoalHandler}
       />
-      <View style={styles.golsConteiner}>
+      <View style={styles.golsContainer}>
         <FlatList
-          data={courseGoals.filter(( goal ) =>
-            goal.category === 'Backlog')}
+          data={state.goals.goals.filter(( goal ) =>
+            goal !== undefined && goal.category === props.category)}
           renderItem={(itemData) => {
             return ( 
               <GoalItem
                 text={itemData.item.text}
                 id={itemData.item.id}
                 onDeleteItem={deleteGoalHandler}
+                onMoveItem={moveGoalHandler}
+                currentCategory={props.category}
               />);
           }}
           keyExtractor={(item, index) => {
@@ -68,7 +72,8 @@ function Backlog() {
   );
 }
 
-export default Backlog;
+
+export default GoalsContainer;
 
 const styles = StyleSheet.create({
     appContainer: {
@@ -79,7 +84,7 @@ const styles = StyleSheet.create({
     bgApp: {
       flex: 1,
     },
-    golsConteiner: {
+    golsContainer: {
       flex: 5,
     }
   });

@@ -1,9 +1,28 @@
 import { useState } from "react";
+import { useDispatch } from 'react-redux'
 import { Alert, Modal, Pressable, StyleSheet, Text, View } from "react-native";
 
 function GoalItem(props) {
 
   const [modalVisible, setModalVisible] = useState(false);
+  const dispatch = useDispatch();
+
+  function onMove() {
+    props.onMoveItem(props.id);
+    setModalVisible(false);
+  }
+
+  function onDelete() {
+    props.onDeleteItem(props.id);
+    setModalVisible(false);
+  }
+
+  function onItemPressed() {
+    dispatch({type: 'SELECT_GOAL', payload: props.id});
+    setModalVisible(true);
+  }
+
+  const moveToCategory = props.currentCategory === 'Backlog' ? '"In Progress"' : 'Done';
 
   return (
       <View>
@@ -18,19 +37,19 @@ function GoalItem(props) {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
+              { props.currentCategory !== 'Done' &&
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  android_ripple={{ color: '#ba024a' }} 
+                  onPress={onMove}
+                >
+                  <Text style={styles.modalText}>Move to {moveToCategory}</Text>
+                </Pressable>
+              }
               <Pressable
                 style={[styles.button, styles.buttonClose]}
                 android_ripple={{ color: '#ba024a' }} 
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={styles.modalText}>Move "In Progress"</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                android_ripple={{ color: '#ba024a' }} 
-                onPress={props.onDeleteItem.bind(this, props.id)}
-                // style={({ pressed }) => 
-                //   pressed && styles.pressedItem }
+                onPress={onDelete}
               >
                 <Text style={styles.modalText}>Delete</Text>
               </Pressable>
@@ -39,14 +58,13 @@ function GoalItem(props) {
                 android_ripple={{ color: '#ba024a' }} 
                 onPress={() => setModalVisible(!modalVisible)}
               >
-                <Text style={styles.modalText}>Edit</Text>
+                <Text style={styles.modalText}>Cancel</Text>
               </Pressable>
             </View>
           </View>
         </Modal>
         <View style={styles.goalItems}>
           <Pressable
-            // style={[styles.buttonOpen]}
             onPress={() => setModalVisible(true)}
           >
             <Text style={styles.goalText}>{ props.text }</Text>

@@ -1,23 +1,27 @@
 import 'react-native-gesture-handler';
-import Category from './components/screens/ScrumBoard/Category';
-import Profile from './components/screens/Profile/Profile';
-
+import { Provider } from 'react-redux';
 import * as React from 'react';
-import { View, Text } from 'react-native';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-function ToDoList() {
-  return <Category /> ;
+import GoalsBoard from './components/screens/ScrumBoard/GoalsBoard';
+import Profile from './components/screens/Profile/Profile';
+import { configStore } from './store';
+
+const store = configStore();
+
+console.log(store.getState());
+
+state = {
+  userId: 1,
+  newGoalText: '',
+  selectedGoalId: -1,
+  goals: []
 }
 
-// function Profile() {
-//   return (
-//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//       <Text>Profile Screen</Text>
-//     </View>
-//   );
-// }
+function ToDoList() {
+  return <GoalsBoard /> ;
+}
 
 const navTheme = {
   ...DefaultTheme,
@@ -37,9 +41,6 @@ function MyDrawer() {
         drawerLabelStyle: {
           color: 'white',
         },
-        // drawerActiveBackgroundColor: {
-        //   color: '#ff0366',
-        // },
         drawerStyle: {
           backgroundColor: '#71856e',
           opacity: 0.95,
@@ -48,7 +49,7 @@ function MyDrawer() {
     >
       <Drawer.Screen
         name="ToDoList"
-        component={Category}
+        component={GoalsBoard}
         options={{ drawerLabel: 'ToDoList' }}
       />
       <Drawer.Screen
@@ -61,9 +62,15 @@ function MyDrawer() {
 }
 
 export default function App() {
+  state = {
+    goals: [],
+  }
+
   return (
-    <NavigationContainer  theme={navTheme}>
-      <MyDrawer />
-    </NavigationContainer>
+    <Provider store = { store }>
+      <NavigationContainer  theme={navTheme}>
+        <MyDrawer />
+      </NavigationContainer>
+    </Provider>
   );
 }
